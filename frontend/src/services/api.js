@@ -1,5 +1,18 @@
 const API_BASE_URL = "http://51.20.254.231/backend/api";
 
+const readJson = async (response) => {
+  const text = await response.text();
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return {
+      status: "error",
+      message: text || "Invalid server response"
+    };
+  }
+};
+
 export const loginUser = async (email, password) => {
   const response = await fetch(`${API_BASE_URL}/login.php`, {
     method: "POST",
@@ -9,7 +22,7 @@ export const loginUser = async (email, password) => {
     body: JSON.stringify({ email, password })
   });
 
-  return response.json();
+  return readJson(response);
 };
 
 export const registerUser = async (name, email, password) => {
@@ -126,5 +139,5 @@ export const loginMechanic = async (email, password) => {
     body: JSON.stringify({ email, password })
   });
 
-  return res.json();
+  return readJson(res);
 };
