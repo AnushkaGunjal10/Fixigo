@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://51.21.224.177/backend/api";
+const API_BASE_URL = "http://51.20.94.150/backend/api";
 
 const readJson = async (response) => {
   const text = await response.text();
