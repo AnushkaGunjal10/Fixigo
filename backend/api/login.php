@@ -56,10 +56,12 @@ if(mysqli_num_rows($result) == 1){
         "user_id" => $row['user_id'],
         "email" => $row['email']
     ]);
+    exit();
 } else {
     echo json_encode([
         "status" => "error",
         "message" => "Invalid credentials"
     ]);
+    exit();
 }
 ?>

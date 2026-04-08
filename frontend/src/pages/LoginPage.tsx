@@ -22,17 +22,21 @@ export function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
 
-    const res = await loginUser(email, password);
+    try {
+      const res = await loginUser(email, password);
 
-    if (res.status === "success") {
-      localStorage.setItem("user", JSON.stringify(res));
-      alert("Login successful");
-      navigate("/app");
-    } else {
-      alert("Invalid credentials");
+      if (res.status === "success") {
+        localStorage.setItem("user", JSON.stringify(res));
+        alert("Login successful");
+        navigate("/app");
+      } else {
+        alert(res.message || "Invalid credentials");
+      }
+    } catch (error) {
+      alert("Login failed");
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   const handleSignup = async (e: FormEvent) => {

@@ -14,13 +14,18 @@ const readJson = async (response) => {
 };
 
 export const loginUser = async (email, password) => {
-  const response = await fetch(`${API_BASE_URL}/login.php`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email, password })
-  });
+  const response = await Promise.race([
+    fetch(`${API_BASE_URL}/login.php`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
+    }),
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Request timed out")), 15000)
+    )
+  ]);
 
   return readJson(response);
 };
