@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://16.16.58.233/backend/api";
+const API_BASE_URL = "http://localhost/fixigo/backend/api";
 
 const readJson = async (response) => {
   const text = await response.text();
